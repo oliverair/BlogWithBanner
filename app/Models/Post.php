@@ -19,9 +19,19 @@ class Post extends Model
      * Get all banners
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function banner()
+    public function banners()
     {
         return $this->morphToMany(Banner::class , Entity::COLUMN_MORPH_NAME);
     }
+
+    /**
+     * Random Banner from list
+     * @return mixed
+     */
+    public function getRandomBanner()
+    {
+        return $this->banners->random();
+    }
+
 
 }
