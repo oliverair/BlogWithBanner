@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Repositories\PostRepository;
+use App\Http\Services\PostProcessService;
 
 class PostController extends Controller
 {
     protected PostRepository $repository;
+    protected PostProcessService $service;
 
-    public function __construct(PostRepository $repository)
+    public function __construct(PostRepository $repository, PostProcessService $service)
     {
         $this->repository = $repository;
+        $this->service = $service;
     }
 
     /**
@@ -38,7 +41,8 @@ class PostController extends Controller
     {
         try {
             $id = $request->route('id');
-            $post = $this->repository->getPost($id);
+            $postRaw = $this->repository->getPost($id);
+            $post = $this->service->process($postRaw);
 
             return view('post', compact('post'));
         } catch (\Exception $exception) {

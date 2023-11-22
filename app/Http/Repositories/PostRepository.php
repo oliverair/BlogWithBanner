@@ -27,6 +27,8 @@ class PostRepository
 
     public function getPost(int $id)
     {
-        return $this->model::where(Post::COLUMN_ID, $id)->firstOrFail();
+        return $this->model::where(Post::COLUMN_ID, $id)
+                            ->with('banners')
+                            ->firstOrFail();
     }
 }

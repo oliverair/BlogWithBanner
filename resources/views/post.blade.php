@@ -7,7 +7,7 @@
         <h1>{{$post->name}}</h1>
 
         <div>
-            {{ $post->text }}
+            {!! $post->text !!}
         </div>
         <p>
             <i> {{ $post->created_at }}</i>
